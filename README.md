@@ -4,19 +4,15 @@ Slamtec RPLIDAR Public SDK for C++
 Introduction
 ------------
 
-Slamtec RPLIDAR(https://www.slamtec.com/lidar/a3) series is a set of high-performance and low-cost LIDAR(https://en.wikipedia.org/wiki/Lidar) sensors, which is the perfect sensor of 2D SLAM, 3D reconstruction, multi-touch, and safety applications.
-
-This is the public SDK of RPLIDAR products in C++, and open-sourced under GPLv3 license.
-
-If you are using ROS (Robot Operating System), please use our open-source ROS node directly: https://github.com/slamtec/rplidar_ros .
-
-If you are just evaluating RPLIDAR, you can use Slamtec RoboStudio(https://www.slamtec.com/robostudio) (currently only support Windows) to do the evaulation.
-
+Slamtec激光雷达(https://www.slamtec.com/lidar/a3系列是一套高性能、低成本的激光雷达(https://en.wikipedia.org/wiki/Lidar)，是2D SLAM、3D重建、多点触摸和安全应用的完美传感器。
+这是C++中RPLIDAR产品的公共SDK，并在GPLv3许可下开源。
+如果您使用的是ROS（机器人操作系统），请直接使用我们的开源ROS节点：https://github.com/slamtec/rplidar_ros 。
+如果您只是在评估RPLIDAR，您可以使用Slamtec RoboStudio(https://www.slamtec.com/robostudio（目前仅支持窗户）。
 License
 -------
 
-The SDK itself is licensed under BSD 2-clause license.
-The demo applications are licensed under GPLv3 license.
+SDK本身是根据BSD 2条款许可证进行许可的。
+演示应用程序根据GPLv3许可证进行许可。
 
 Release Notes
 -------------
@@ -45,15 +41,15 @@ Quick Start
 
 ### On Windows
 
-If you have Microsoft Visual Studio 2010 installed, just open sdk/workspaces/vc10/sdk_and_demo.sln, and compile. It contains the library as well as some demo applications.
+如果安装了Microsoft Visual Studio 2010，只需打开sdk/workspace/vc10/sdk_和_demo.sln并编译即可。它包含库以及一些演示应用程序
 
 ### On macOS and Linux
 
-Please make sure you have make and g++ installed, and then just invoke make in the root directory, you can get the compiled result at `output/$PLATFORM/$SCHEME`, such as `output/Linux/Release`.
+请确保已安装make和g++，然后只需在根目录中调用make，即可在`output/$PLATFORM/$SCHEME`处获得编译结果，如`output/Linux/Release`。
 
     make
 
-The Makefile compiles Release build by default, and you can also use `make DEBUG=1` to compile Debug builds.
+默认情况下，Makefile编译发布版本，您还可以使用`makedebug=1`编译调试版本。
 
 Cross Compile
 -------------
@@ -105,8 +101,7 @@ Usually you only need to include this file to get all functions of RPLIDAR SDK.
 
 ### SDK Initialization and Termination
 
-There are two static interfaces to create and dispose RPLIDAR driver instance. Each RPLIDAR driver instance can only be used to communicate with one RPLIDAR device. You can freely allocate arbitrary number of RPLIDAR driver instances to communicate with multiple RPLIDAR devices concurrently.
-
+有两个静态接口用于创建和处理RPLIDAR驱动程序实例。每个RPLIDAR驱动程序实例只能用于与一个RPLIDAR设备通信。您可以自由分配任意数量的RPLIDAR驱动程序实例，以同时与多个RPLIDAR设备通信。
     /// Create an RPLIDAR Driver Instance
     /// This interface should be invoked first before any other operations
     ///
@@ -132,7 +127,7 @@ For example:
 
 ### Connect to RPLIDAR
 
-After creating an RPlidarDriver instance, you can use `connect()` method to connect to a serial port:
+创建RPlidarDriver实例后，可以使用`connect()`方法连接到串行端口:
 
     u_result res = lidar->connect("/dev/ttyUSB0", 115200);
 
@@ -150,7 +145,7 @@ After creating an RPlidarDriver instance, you can use `connect()` method to conn
 
 The LIDAR is not spinning by default. Method `startMotor()` is used to start this motor.
 
-> For RPLIDAR A1 series, this method will enable DTR signal to make the motor rotate; for A2 and A3 serieses, the method will make the accessory board to output a PWM signal to MOTOR_PWM pin.
+>对于RPLIDAR A1系列，该方法将使DTR信号使电机旋转；对于A2和A3系列，该方法将使附件板向电机的PWM引脚输出PWM信号。
 
     lidar->startMotor();
     // TODO
@@ -158,25 +153,23 @@ The LIDAR is not spinning by default. Method `startMotor()` is used to start thi
 
 ### Start scan
 
-Slamtec RPLIDAR support different scan modes for compatibility and performance. Since RPLIDAR SDK 1.6.0, a new API `getAllSupportedScanModes()` has been added to the SDK.
+Slamtec RPLIDAR支持不同的扫描模式以实现兼容性和性能。自RPLIDAR SDK 1.6.0以来，SDK中添加了一个新的API`getAllSupportedScanModes()`。
 
     std::vector<RplidarScanMode> scanModes;
     lidar->getAllSupportedScanModes(scanModes);
 
-You can pick a scan mode from this list like this:
+您可以像这样从列表中选择扫描模式v:
 
     lidar->startScanExpress(false, scanModes[0].id);
 
-Or you can just use the typical scan mode of RPLIDAR like this:
+或者你可以像这样使用RPLIDAR的典型扫描模式:
 
     RplidarScanMode scanMode;
     lidar->startScan(false, true, 0, &scanMode);
 
 ### Grab scan data
-
-When the RPLIDAR is scanning, you can use `grabScanData()` and `grabScanDataHq()` API to fetch one frame of scan. The difference between `grabScanData()` and `grabScanDataHq()` is the latter one support distances farther than 16.383m, which is required for RPLIDAR A2M6-R4 and RPLIDAR A3 series.
-
-> The `grabScanDataHq()` API is backward compatible with old LIDAR models and old firmwares. So we recommend always using this API, and use `grabScanData()` only for compatibility.
+当RPLIDAR扫描时，您可以使用`GrabScanda()`和`GrabScandaHQ()` API获取一帧扫描。`GrabScanda()`和`GrabScandaHQ()`之间的区别是后者的支撑距离大于16.383m，这是RPLIDAR A2M6-R4和RPLIDAR A3系列所需的。
+> `grabScanDataHq()`API与旧激光雷达模型和旧固件向后兼容。因此，我们建议始终使用此API，并仅为了兼容性而使用'`grabScanData()`。
 
     rplidar_response_measurement_node_hq_t nodes[8192];
     size_t nodeCount = sizeof(nodes)/sizeof(rplidar_response_measurement_node_hq_t);
