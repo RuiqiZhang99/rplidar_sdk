@@ -4,10 +4,10 @@ Slamtec RPLIDAR Public SDK for C++
 Introduction
 ------------
 
-Slamtec激光雷达(https://www.slamtec.com/lidar/a3系列是一套高性能、低成本的激光雷达(https://en.wikipedia.org/wiki/Lidar)，是2D SLAM、3D重建、多点触摸和安全应用的完美传感器。
+Slamtec激光雷达(https://www.slamtec.com/lidar/a3) 系列是一套高性能、低成本的激光雷达(https://en.wikipedia.org/wiki/Lidar)，是2D SLAM、3D重建、多点触摸和安全应用的完美传感器。
 这是C++中RPLIDAR产品的公共SDK，并在GPLv3许可下开源。
 如果您使用的是ROS（机器人操作系统），请直接使用我们的开源ROS节点：https://github.com/slamtec/rplidar_ros 。
-如果您只是在评估RPLIDAR，您可以使用Slamtec RoboStudio(https://www.slamtec.com/robostudio（目前仅支持窗户）。
+如果您只是在评估RPLIDAR，您可以使用Slamtec RoboStudio(https://www.slamtec.com/robostudio （目前仅支持窗户）。
 License
 -------
 
